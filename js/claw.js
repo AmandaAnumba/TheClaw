@@ -14,7 +14,7 @@ var VSHADER_SOURCE =
 var FSHADER_SOURCE = 
   '#ifdef GL_ES\n' +
   'precision mediump float;\n' +
-  '#endif GL_ES\n' +
+  '#endif\n' +
   'varying vec4 v_Color;\n' +
   'void main() {\n' +
   '  gl_FragColor = v_Color;\n' +
@@ -630,7 +630,7 @@ function myMouseMove(ev, gl, canvas) {
   var rect = ev.target.getBoundingClientRect(); // get canvas corners in pixels
   var xp = ev.clientX - rect.left;                  // x==0 at canvas left edge
   var yp = canvas.height - (ev.clientY - rect.top); // y==0 at canvas bottom edge
-//  console.log('myMouseMove(pixel coords): xp,yp=\t',xp,',\t',yp);
+  //  console.log('myMouseMove(pixel coords): xp,yp=\t',xp,',\t',yp);
   
   // Convert to Canonical View Volume (CVV) coordinates too:
   var x = (xp - canvas.width/2)  /    // move origin to center of canvas and
@@ -668,16 +668,33 @@ function myMouseUp(ev, gl, canvas) {
 
 
 // ----------------------------- other functions
+$(function() {
+  $('body').on('keypress', function(e) {
+    var $start = $("#start"),
+        $end = $('#end');
+
+    if ( $start.is(':visible') && e.which === 97 ) {
+      startgame();
+    }
+
+    else if ( $end.is(':visible') && e.which === 114 ) {
+      reloadPage();
+    }
+  });
+});
+
 function startgame() {
-  document.getElementById('game').style.display='block';
-  document.getElementById('help').style.display='block';
-  $("#start").slideUp(1000);
+  console.log('starting game');
+
+  $("#start").slideUp(600, function() {
+    $('#game, #help').fadeIn();
+  });
 }
 
 function endgame() {
   setTimeout(function(){
       document.getElementById('help').style.display='none'; 
-      $("#game").slideUp(1000);
+      $("#game").slideUp(600);
       document.getElementById('end').style.display='block';
     },
     1000);

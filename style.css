@@ -43,7 +43,6 @@ body {
 #start {
 	font-family: 'mario';
 	margin: 0 auto;
-	width: 50%;
 	font-size: 30px;
 	top: 0px;
 	border: 6px black solid;
@@ -55,7 +54,6 @@ body {
 #end {
 	font-family: 'mario';
 	margin: 0 auto;
-	width: 50%;
 	font-size: 30px;
 	top: 0px;
 	border: 6px black solid;
